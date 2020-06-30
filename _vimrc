@@ -1,9 +1,9 @@
-" Vim with all enhancements
-source $VIMRUNTIME/vimrc_example.vim
+
 autocmd filetype cpp nnoremap <F2> :w <bar> !g++ -Wall -Wextra -DLOCAL -O2 % -o %:r -Wl,--stack,268435456<CR>
 autocmd filetype cpp nnoremap <F3> :!%:r<CR>
 autocmd filetype cpp nnoremap <C-C> :s/^\(\s*\)/\1\/\/<CR> :s/^\(\s*\)\/\/\/\//\1<CR> $
 
+autocmd GUIEnter * simalt ~x
 syntax on
 set encoding=UTF-8
 set laststatus=2
@@ -11,9 +11,9 @@ set rnu
 set guioptions-=m  "menu bar
 set guioptions-=T  "toolbar
 set guioptions-=r  "scrollbar
-set noshowmode
 set clipboard=unnamedplus
 set guifont=Cousine_NF:h11:b
+set backspace=indent,eol,start
 set mouse=a
 set belloff=all
 set tabstop=2
@@ -34,7 +34,7 @@ nnoremap <C-H> <C-W><C-H>
 
 set t_Co=256
 set background=dark
-colorscheme gruvbox 
+colorscheme monokai
 
 
 " Use the internal diff if available.
@@ -80,18 +80,13 @@ filetype off                  " required
 filetype plugin on
 
 
-" set the runtime path to include Vundle and initialize
 set rtp+=$HOME/vimfiles/bundle/Vundle.vim/
 call vundle#begin('$HOME/vimfiles/bundle/')
-" alternatively, pass a path where Vundle should install plugins
-"call vundle#begin('~/some/path/here')
 
 let g:snippets_dir="$HOME/vimfiles/bundle/sv-snippets/snippets"
 
-" let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'octol/vim-cpp-enhanced-highlight'
-Plugin 'pangloss/vim-javascript'
 Plugin 'tiagofumo/vim-nerdtree-syntax-highlight'
 Plugin 'MarcWeber/vim-addon-mw-utils'
 Plugin 'tomtom/tlib_vim'
@@ -101,19 +96,8 @@ Plugin 'preservim/nerdtree'
 Plugin 'tpope/vim-fugitive'
 Plugin 'vim-airline/vim-airline'
 Plugin 'ryanoasis/vim-devicons'
+Plugin 'maxmellon/vim-jsx-pretty'
 
-" All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
-" To ignore plugin indent changes, instead use:
-"filetype plugin on
-"
-" Brief help
-" :PluginList       - lists configured plugins
-" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
-" :PluginSearch foo - searches for foo; append `!` to refresh local cache
-" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
-"
-" see :h vundle for more details or wiki for FAQ
-" Put your non-Plugin stuff after this line
 

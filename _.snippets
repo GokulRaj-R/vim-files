@@ -666,3 +666,40 @@ snippet 2sat
 		}
 		return ret;
 	}
+# Suffix Array
+snippet sarray
+	void suffix_array(string s, vector<int> &p, vector<int> &c) {
+		s += '0';
+		int n = s.size(), k = 0;
+		vector<int> cn(n);
+		p.resize(n);
+		c.resize(n);
+		iota(p.begin(), p.end(), 0);
+		sort(p.begin(), p.end(), [&](int i, int j) {
+				return s[i] < s[j];
+		});
+		
+		for (int i = 1; i < n; ++i) {
+			c[p[i]] = c[p[i-1]] + (s[p[i]] != s[p[i-1]]);
+		}
+		
+		auto count_sort = [&](vector<int> &p, vector<int> &c) {
+			vector<int> pos(n, 0), pn(n);
+			for (auto i : c) pos[i]++;
+			for (auto &i : p) i = (i - (1<<k) + n) % n;
+			for (int i = 1; i < n; ++i) pos[i] += pos[i - 1];
+			for (int i = n - 1; i >= 0; --i) pn[--pos[c[p[i]]]] = p[i];
+			swap(p, pn);
+		};
+		
+		while ((1<<k) < n) {
+			count_sort(p, c);
+			cn[p[0]] = 0;
+			for (int i = 1; i < n; ++i) {
+				pair<int, int> prev = {c[p[i-1]], c[(p[i-1] + (1<<k))%n]}, cur = {c[p[i]], c[(p[i] + (1<<k))%n]};
+				cn[p[i]] = cn[p[i-1]] + (prev != cur);
+			}
+			++k;
+			swap(c, cn);
+		}
+	}

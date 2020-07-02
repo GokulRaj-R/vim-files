@@ -11,8 +11,9 @@ set rnu
 set guioptions-=m  "menu bar
 set guioptions-=T  "toolbar
 set guioptions-=r  "scrollbar
-set clipboard=unnamedplus
-set guifont=Cousine_NF:h11:b
+" set clipboard=unnamedplus
+set ff=unix
+set guifont=Cousine_NF:h11
 set backspace=indent,eol,start
 set mouse=a
 set belloff=all
@@ -31,11 +32,49 @@ nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
+nnoremap <F6> :ALEToggle<CR>
 
 set t_Co=256
 set background=dark
 colorscheme monokai
 
+set nocompatible              " be iMproved, required
+filetype off                  " required
+filetype plugin on
+
+
+
+set rtp+=$HOME/vimfiles/bundle/Vundle.vim/
+call vundle#begin('$HOME/vimfiles/bundle/')
+
+let g:snippets_dir="$HOME/vimfiles/bundle/sv-snippets/snippets"
+
+Plugin 'VundleVim/Vundle.vim'
+Plugin 'octol/vim-cpp-enhanced-highlight'
+Plugin 'tiagofumo/vim-nerdtree-syntax-highlight'
+Plugin 'MarcWeber/vim-addon-mw-utils'
+Plugin 'tomtom/tlib_vim'
+Plugin 'garbas/vim-snipmate'
+Plugin 'honza/vim-snippets'
+Plugin 'preservim/nerdtree'
+Plugin 'vim-airline/vim-airline'
+Plugin 'ryanoasis/vim-devicons'
+Plugin 'maxmellon/vim-jsx-pretty'
+Plugin 'dense-analysis/ale'
+Plugin 'tomtom/tcomment_vim'
+Plugin 'tpope/vim-fugitive'
+
+call vundle#end()            " required
+filetype plugin indent on    " required
+
+" Linter configuration
+let g:ale_fixers = {'javascript': ['prettier', 'eslint']}
+let g:ale_lint_on_text_changed = 'never'
+let g:ale_lint_on_enter = 0
+let g:ale_javascript_eslint_executable='npx eslint'
+let g:ale_sign_error = '>>'
+let g:ale_sign_warning = '#'
+let g:ale_enabled = 0
 
 " Use the internal diff if available.
 " Otherwise use the special 'diffexpr' for Windows.
@@ -74,30 +113,3 @@ function MyDiff()
     let &shellxquote=l:shxq_sav
   endif
 endfunction
-
-set nocompatible              " be iMproved, required
-filetype off                  " required
-filetype plugin on
-
-
-set rtp+=$HOME/vimfiles/bundle/Vundle.vim/
-call vundle#begin('$HOME/vimfiles/bundle/')
-
-let g:snippets_dir="$HOME/vimfiles/bundle/sv-snippets/snippets"
-
-Plugin 'VundleVim/Vundle.vim'
-Plugin 'octol/vim-cpp-enhanced-highlight'
-Plugin 'tiagofumo/vim-nerdtree-syntax-highlight'
-Plugin 'MarcWeber/vim-addon-mw-utils'
-Plugin 'tomtom/tlib_vim'
-Plugin 'garbas/vim-snipmate'
-Plugin 'honza/vim-snippets'
-Plugin 'preservim/nerdtree'
-Plugin 'tpope/vim-fugitive'
-Plugin 'vim-airline/vim-airline'
-Plugin 'ryanoasis/vim-devicons'
-Plugin 'maxmellon/vim-jsx-pretty'
-
-call vundle#end()            " required
-filetype plugin indent on    " required
-

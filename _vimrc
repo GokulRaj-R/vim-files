@@ -25,6 +25,7 @@ set smarttab
 set expandtab
 set smartcase
 set foldmethod=manual
+set timeoutlen=150
 imap jk <ESC>
 imap kj <ESC>
 

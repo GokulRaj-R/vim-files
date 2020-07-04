@@ -668,7 +668,7 @@ snippet 2sat
 	}
 # Suffix Array
 snippet sarray
-	void suffix_array(string s, vector<int> &p, vector<int> &c) {
+	void suffix_array(string &s, vector<int> &p, vector<int> &c) {
 		s += '0';
 		int n = s.size(), k = 0;
 		vector<int> cn(n);
@@ -689,7 +689,7 @@ snippet sarray
 			for (auto &i : p) i = (i - (1<<k) + n) % n;
 			for (int i = 1; i < n; ++i) pos[i] += pos[i - 1];
 			for (int i = n - 1; i >= 0; --i) pn[--pos[c[p[i]]]] = p[i];
-			swap(p, pn);
+			p.swap(pn);
 		};
 		
 		while ((1<<k) < n) {
@@ -700,6 +700,7 @@ snippet sarray
 				cn[p[i]] = cn[p[i-1]] + (prev != cur);
 			}
 			++k;
-			swap(c, cn);
+			c.swap(cn);
+			if (c[p.back()] == n - 1) break;
 		}
 	}

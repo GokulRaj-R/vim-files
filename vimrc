@@ -62,6 +62,14 @@ set t_Co=256
 set background=dark
 colorscheme dracula
 
+" revert the shell
+if has('win32')
+   if !empty($SHELL)
+      set shell=cmd.exe shellcmdflag=/c shellredir=>%s\ 2>&1
+      set shellxquote=( shellxescape&vim shellquote=
+   endif
+endif
+
 " FZF
 nnoremap <C-p> :FZF<CR>
 let g:fzf_action = {

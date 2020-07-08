@@ -11,15 +11,14 @@ set smartcase
 set tabstop=2
 set expandtab
 set autoindent
+set linespace=2
 set belloff=all
 set shiftwidth=2
 set laststatus=2
 set guioptions-=m  
 set guioptions-=T  
 set softtabstop=2
-set timeoutlen=250
 set encoding=UTF-8
-set linespace=2
 set guifont=Cousine_NF:h11
 set backspace=indent,eol,start
 
@@ -31,6 +30,8 @@ nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 nnoremap <F6> :ALEToggle<CR>
+nmap <C-\> gcc
+vmap <C-\> gc
 
 set nocompatible             
 syntax on

@@ -617,8 +617,10 @@ snippet tcase
 
 	}
 # Time Taken
-snippet ctime
-	cerr << "\nTime Taken : " << (double)clock() / CLOCKS_PER_SEC << '\n';
+snippet cstime
+	double start = clock();
+snippet cetime
+	cerr << "\nTime Taken : " << ((double)clock() - start) / CLOCKS_PER_SEC << '\n';
 # TestCases
 snippet tint
 	int t;

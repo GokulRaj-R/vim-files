@@ -1,5 +1,6 @@
 " CP
 autocmd filetype cpp nnoremap <F2> :w <bar> !g++ -Wall -Wextra -DLOCAL -O2 % -o %:r -Wl,--stack,268435456<CR>
+autocmd filetype cpp nnoremap <F4> :w <bar> !g++ -Wall -Wextra -D_GLIBCXX_DEBUG -D_GLIBCXX_DEBUG_PEDANTIC -DLOCAL -O2 % -o %:r -Wl,--stack,268435456<CR>
 autocmd filetype cpp nnoremap <F3> :!%:r<CR>
 autocmd GUIEnter * simalt ~x
 
@@ -7,7 +8,6 @@ autocmd GUIEnter * simalt ~x
 set nu
 set mouse=a
 set smarttab
-set smartcase
 set tabstop=2
 set expandtab
 set autoindent
@@ -46,11 +46,12 @@ Plug 'junegunn/fzf.vim'
 Plug 'honza/vim-snippets'
 Plug 'preservim/nerdtree'
 Plug 'tpope/vim-fugitive'
-Plug 'garbas/vim-snipmate'
 Plug 'dense-analysis/ale'
 Plug 'tpope/vim-commentary'
+Plug 'garbas/vim-snipmate'
 Plug 'ryanoasis/vim-devicons'
 Plug 'vim-airline/vim-airline'
+Plug 'pangloss/vim-javascript'
 Plug 'maxmellon/vim-jsx-pretty'
 Plug 'MarcWeber/vim-addon-mw-utils'
 Plug 'octol/vim-cpp-enhanced-highlight'
@@ -83,10 +84,36 @@ let $FZF_DEFAULT_COMMAND = 'ag -g ""'
 " Linter configuration
 let g:ale_enabled = 0
 let g:ale_lint_on_enter = 0
+let g:ale_fix_on_save = 1
 let g:ale_sign_warning = '#'
 let g:ale_lint_on_text_changed = 'never'
 let g:ale_javascript_eslint_executable='npx eslint'
 let g:ale_fixers = {'javascript': ['prettier', 'eslint']}
 
 " NERDTree
+nmap <leader>c cdCD
 nnoremap <silent> <C-b> :NERDTreeToggle<CR>
+
+" Buffers
+" Mappings to access buffers (don't use \p because a
+" delay before pressing p would accidentally paste).
+" \l       : list buffers
+" \b \f \g : go back/forward/last-used
+" \1 \2 \3 : go to buffer 1/2/3 etc
+nnoremap <Leader>l :ls<CR>:b<Space>
+nnoremap <Leader>b :bp<CR>
+nnoremap <Leader>f :bn<CR>
+nnoremap <Leader>g :e#<CR>
+nnoremap <Leader>1 :1b<CR>
+nnoremap <Leader>2 :2b<CR>
+nnoremap <Leader>3 :3b<CR>
+nnoremap <Leader>4 :4b<CR>
+nnoremap <Leader>5 :5b<CR>
+nnoremap <Leader>6 :6b<CR>
+nnoremap <Leader>7 :7b<CR>
+nnoremap <Leader>8 :8b<CR>
+nnoremap <Leader>9 :9b<CR>
+nnoremap <Leader>0 :10b<CR>
+" It's useful to show the buffer number in the status line.
+set laststatus=2 statusline=%02n:%<%f\ %h%m%r%=%-14.(%l,%c%V%)\ %P
+

@@ -254,6 +254,10 @@ snippet dsu
 snippet ftree
 	struct ftree {
 		vector<int> bit;
+		ftree (int _n) {
+			bit.assign(_n + 5, 0);
+		}
+
 		void update(int x, int val) {
 			while (x < (int)bit.size()) {
 				bit[x] += val;
@@ -779,3 +783,8 @@ snippet hasher
 			return ans;
 		}
 	};
+# Modular inverse
+snippet inverse
+	int inverse(int a, int b = M) {
+		return a > 1 ? b - inverse(b%a, a)*b/a : 1;
+	}

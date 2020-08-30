@@ -494,7 +494,7 @@ snippet modular
 		friend bool operator==(Modular const& a, Modular const& b) {return a.value == b.value;}
 		friend bool operator!=(Modular const& a, Modular const& b) {return a.value != b.value;}
 	};
-
+	using mint = Modular<>;
 # Policy Based Data Structures
 snippet pbds
 	#include <ext/pb_ds/assoc_container.hpp> // Common file
@@ -545,11 +545,10 @@ snippet segtree
 	struct segtree {
 
 		vector<T> seg, lazy;
-
 		segtree(int n = 1e5) {
 			n += 5;
-			seg.assign(4*n, 0);
-			lazy.assign(4*n, 0);
+			seg.resize(4*n, 0);
+			lazy.resize(4*n, 0);
 		}
 
 		T join(T x, T y) {
@@ -609,7 +608,7 @@ snippet segtree
 	};
 
 
-# Testcases Google
+# Testcases Case #i : answer
 snippet tcase
 	int tc;
 	cin >> tc;

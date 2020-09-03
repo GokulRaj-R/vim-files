@@ -482,7 +482,16 @@ snippet modular
 			Modular res = 1; while (e) { if (e&1) res *= a; a *= a; e >>= 1; }
 			return res;
 		}
-		friend Modular inverse(Modular a) { return mexp(a, MOD - 2); }
+
+		friend Modular inverse(Modular b, long long m = MOD) {
+			long long u = 0, v = 1, a = b.value;
+			while (a != 0) {
+				long long t = m / a;
+				m -= t * a; swap(a, m);
+				u -= t * v; swap(u, v);
+			}
+			return Modular(u);
+		}
 
 		Modular& operator/=(Modular const& b) { return *this *= inverse(b); }
 		friend Modular operator+(Modular a, Modular const b) { return a += b; }
@@ -495,6 +504,7 @@ snippet modular
 		friend bool operator!=(Modular const& a, Modular const& b) {return a.value != b.value;}
 	};
 	using mint = Modular<>;
+
 # Policy Based Data Structures
 snippet pbds
 	#include <ext/pb_ds/assoc_container.hpp> // Common file
@@ -786,4 +796,53 @@ snippet hasher
 snippet inverse
 	int inverse(int a, int b = M) {
 		return a > 1 ? b - inverse(b%a, a)*b/a : 1;
+	}
+
+# NTT
+snippet ntt
+	void ntt(vector<mint> &a, bool invert) {
+		int n = a.size();
+
+		for (int i = 1, j = 0, bit; i < n; i++) {
+			for (bit = n>>1; j&bit; bit >>= 1)
+				j ^= bit;
+			j ^= bit;
+
+			if (i < j) swap(a[i], a[j]);
+		}
+
+		for (int len = 2; len <= n; len <<= 1) {
+			int wlen = pwr(3, (M-1)/len);
+			if (invert) wlen = pwr(wlen, M-2);
+
+			for (int i = 0; i < n; i += len) {
+				mint w = 1;
+				for (int j = 0; j < len / 2; j++) {
+					mint u = a[i+j], v = a[i+j+len/2] * w;
+					a[i+j] = u + v;
+					a[i+j+len/2] = u - v;
+					w *= wlen;
+				}
+			}
+		}
+
+		if (invert) { 
+			for (mint &x : a) x /= n;
+		}
+	}
+
+# Modular factorial and inverse
+snippet modfac
+	vector<mint> fac, inv;
+	void initfac(int _n) {
+		fac.resize(_n, 1);
+		inv.resize(_n, 1);
+		for (int i = 1; i < _n; ++i) fac[i] = i * fac[i-1];
+		inv[_n-1] = mint(1, fac[_n-1].value);
+		for (int i = _n-2; i >= 0; --i) inv[i] = (i+1) * inv[i+1];
+	}
+
+	mint ncr(int na, int nb) {
+		if (!fac.size()) assert(false), initfac();
+		return fac[na] * inv[nb] * inv[na-nb];
 	}

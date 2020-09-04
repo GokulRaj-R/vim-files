@@ -1,7 +1,10 @@
 " CP
 autocmd filetype cpp nnoremap <F2> :w <bar> !g++ -Wall -Wextra -DLOCAL -O2 % -o %:r -Wl,--stack,268435456<CR>
-autocmd filetype cpp nnoremap <F4> :w <bar> !g++ -Wall -Wextra -D_GLIBCXX_DEBUG -D_GLIBCXX_DEBUG_PEDANTIC -DLOCAL -O2 % -o %:r -Wl,--stack,268435456<CR>
-autocmd filetype cpp nnoremap <F3> :!%:r<CR>
+autocmd filetype cpp nnoremap <F3> :w <bar> !g++ -Wall -Wextra -D_GLIBCXX_DEBUG -D_GLIBCXX_DEBUG_PEDANTIC -DLOCAL -O2 % -o %:r -Wl,--stack,268435456<CR>
+autocmd filetype cpp nnoremap <F4> :!%:r<CR>
+autocmd filetype cpp nnoremap <F5> :!%:r < %:rin<CR>
+autocmd filetype cpp nnoremap <F6> :!%:r < %:rin > %:rout<CR>
+
 autocmd GUIEnter * simalt ~x
 
 " Editor Settings
@@ -32,6 +35,9 @@ nnoremap <C-H> <C-W><C-H>
 nnoremap <leader>y :%y+<CR>
 nmap <C-\> gcc
 vmap <C-\> gc
+
+" Generate test file
+nnoremap <leader>t :tabe %:rin<CR>
 
 set nocompatible             
 syntax on

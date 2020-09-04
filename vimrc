@@ -37,7 +37,8 @@ nmap <C-\> gcc
 vmap <C-\> gc
 
 " Generate test file
-nnoremap <leader>t :tabe %:rin<CR>
+nnoremap <leader>i :tabe %:rin<CR>
+nnoremap <leader>o :tabe %:rout<CR>
 
 set nocompatible             
 syntax on

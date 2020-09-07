@@ -1,12 +1,3 @@
-" CP
-autocmd filetype cpp nnoremap <F2> :w <bar> !g++ -Wall -Wextra -DLOCAL -O2 % -o %:r -Wl,--stack,268435456<CR>
-autocmd filetype cpp nnoremap <F3> :w <bar> !g++ -Wall -Wextra -D_GLIBCXX_DEBUG -D_GLIBCXX_DEBUG_PEDANTIC -DLOCAL -O2 % -o %:r -Wl,--stack,268435456<CR>
-autocmd filetype cpp nnoremap <F4> :!%:r<CR>
-autocmd filetype cpp nnoremap <F5> :!%:r < %:rin<CR>
-autocmd filetype cpp nnoremap <F6> :!%:r < %:rin > %:rout<CR>
-
-autocmd GUIEnter * simalt ~x
-
 " Editor Settings
 set nu
 set mouse=a
@@ -24,6 +15,7 @@ set softtabstop=2
 set encoding=UTF-8
 set guifont=Cousine_NF:h11
 set backspace=indent,eol,start
+autocmd GUIEnter * simalt ~x
 
 " Movement Mappings
 imap jk <ESC>
@@ -33,12 +25,10 @@ nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 nnoremap <leader>y :%y+<CR>
+
+" Comments
 nmap <C-\> gcc
 vmap <C-\> gc
-
-" Generate test file
-nnoremap <leader>i :tabe %:rin<CR>
-nnoremap <leader>o :tabe %:rout<CR>
 
 set nocompatible             
 syntax on
@@ -84,19 +74,40 @@ nnoremap <silent> <C-b> :NERDTreeToggle<CR>
 " \l       : list buffers
 " \b \f \g : go back/forward/last-used
 " \1 \2 \3 : go to buffer 1/2/3 etc
-nnoremap <Leader>l :ls<CR>:b<Space>
+nnoremap <Leader>l :ls<CR>:b<space>
 nnoremap <Leader>b :bp<CR>
 nnoremap <Leader>f :bn<CR>
 nnoremap <Leader>g :e#<CR>
-nnoremap <Leader>1 :1b<CR>
-nnoremap <Leader>2 :2b<CR>
-nnoremap <Leader>3 :3b<CR>
-nnoremap <Leader>4 :4b<CR>
-nnoremap <Leader>5 :5b<CR>
-nnoremap <Leader>6 :6b<CR>
-nnoremap <Leader>7 :7b<CR>
-nnoremap <Leader>8 :8b<CR>
-nnoremap <Leader>9 :9b<CR>
-nnoremap <Leader>0 :10b<CR>
-
 set laststatus=2 statusline=%02n:%<%f\ %h%m%r%=%-14.(%l,%c%V%)\ %P
+
+" CP 
+" Run with ith Input File
+nnoremap <Leader>1 :!%:r < %:rin_1<CR>
+nnoremap <Leader>2 :!%:r < %:rin_2<CR>
+nnoremap <Leader>3 :!%:r < %:rin_3<CR>
+nnoremap <Leader>4 :!%:r < %:rin_4<CR>
+nnoremap <Leader>5 :!%:r < %:rin_5<CR>
+nnoremap <Leader>6 :!%:r < %:rin_6<CR>
+nnoremap <Leader>7 :!%:r < %:rin_7<CR>
+
+" Make ith Input File
+nnoremap <Leader>i1 :tabe %:rin_1<bar>:%d<bar>:put +<CR><bar>:wq<CR>
+nnoremap <Leader>i2 :tabe %:rin_2<bar>:%d<bar>:put +<CR><bar>:wq<CR>
+nnoremap <Leader>i3 :tabe %:rin_3<bar>:%d<bar>:put +<CR><bar>:wq<CR>
+nnoremap <Leader>i4 :tabe %:rin_4<bar>:%d<bar>:put +<CR><bar>:wq<CR>
+nnoremap <Leader>i5 :tabe %:rin_5<bar>:%d<bar>:put +<CR><bar>:wq<CR>
+nnoremap <Leader>i6 :tabe %:rin_6<bar>:%d<bar>:put +<CR><bar>:wq<CR>
+nnoremap <Leader>i7 :tabe %:rin_7<bar>:%d<bar>:put +<CR><bar>:wq<CR>
+
+" Open input and output manually
+nnoremap <leader>ii :e %:rin_
+nnoremap <leader>oo :e %:rout_
+
+" Open Command Prompt
+noremap <leader>t :!cmd<CR>
+
+" Compile OR Run
+autocmd filetype cpp nnoremap <F2> :w <bar> !g++ -Wall -Wextra -DLOCAL -O2 % -o %:r -Wl,--stack,268435456<CR>
+autocmd filetype cpp nnoremap <F3> :w <bar> !g++ -Wall -Wextra -D_GLIBCXX_DEBUG -D_GLIBCXX_DEBUG_PEDANTIC -DLOCAL -O2 % -o %:r -Wl,--stack,268435456<CR>
+autocmd filetype cpp nnoremap <F4> :!%:r<CR>
+autocmd filetype cpp nnoremap <F5> :!%:r < %:rin_1 > %:rout_
